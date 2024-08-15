@@ -1,0 +1,32 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate synthetic data for demonstration
+np.random.seed(42)
+data = np.random.normal(loc=0, scale=1, size=1000)
+
+# Create histogram
+plt.figure(figsize=(12, 6))
+
+# Plot histogram
+plt.hist(data, bins=30, density=True, alpha=0.6, color='g', edgecolor='black', label='Histogram')
+
+# Optional: Plot density curve (Kernel Density Estimation)
+# For density estimation, we use numpy's histogram to approximate the density
+hist, bins = np.histogram(data, bins=30, density=True)
+bin_centers = (bins[:-1] + bins[1:]) / 2
+plt.plot(bin_centers, hist, 'k', linewidth=2, label='Density Curve')
+
+# Optional: Plot cumulative distribution curve
+cum_hist = np.cumsum(hist * np.diff(bins))  # Cumulative sum of the histogram
+plt.plot(bin_centers, cum_hist, 'r--', linewidth=2, label='Cumulative Distribution')
+
+# Add titles and labels
+plt.title('H-Plot Construction')
+plt.xlabel('Value')
+plt.ylabel('Frequency / Density')
+plt.legend()
+plt.grid(True)
+
+# Show plot
+plt.show()
